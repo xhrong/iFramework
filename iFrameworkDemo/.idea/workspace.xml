@@ -128,8 +128,8 @@
       <file leaf-file-name="DownloadOperator.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/DownloadOperator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23170732" vertical-offset="912" max-vertical-offset="3439">
-              <caret line="54" column="8" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.73373985" vertical-offset="912" max-vertical-offset="3439">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -862,12 +862,12 @@
       <workItem from="1409218037667" duration="601000" />
       <workItem from="1409548969803" duration="7870000" />
       <workItem from="1409616843835" duration="16419000" />
-      <workItem from="1409654815960" duration="6190000" />
+      <workItem from="1409654815960" duration="6226000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47875000" />
+    <option name="totallyTimeSpent" value="47911000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1403,8 +1403,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/DownloadOperator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23170732" vertical-offset="912" max-vertical-offset="3439">
-          <caret line="54" column="8" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.73373985" vertical-offset="912" max-vertical-offset="3439">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

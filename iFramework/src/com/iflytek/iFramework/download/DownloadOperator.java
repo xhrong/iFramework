@@ -52,7 +52,7 @@ public class DownloadOperator implements Runnable {
 
 	void cancelDownload() {
 		stopFlag = true;
-        
+
 		resumeDownload();
 	}
 
