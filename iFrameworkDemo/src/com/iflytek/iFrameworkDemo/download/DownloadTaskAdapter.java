@@ -29,6 +29,48 @@ public class DownloadTaskAdapter extends ArrayAdapter<DownloadTask> {
         public ProgressBar pBar;
     }
 
+    private DownloadListener listener=new DownloadListener() {
+        @Override
+        public void onDownloadStart(DownloadTask task) {
+
+        }
+
+        @Override
+        public void onDownloadUpdated(DownloadTask task, long finishedSize, long trafficSpeed) {
+
+        }
+
+        @Override
+        public void onDownloadPaused(DownloadTask task) {
+
+        }
+
+        @Override
+        public void onDownloadResumed(DownloadTask task) {
+
+        }
+
+        @Override
+        public void onDownloadSuccessed(DownloadTask task) {
+
+        }
+
+        @Override
+        public void onDownloadCanceled(DownloadTask task) {
+
+        }
+
+        @Override
+        public void onDownloadFailed(DownloadTask task) {
+
+        }
+
+        @Override
+        public void onDownloadRetry(DownloadTask task) {
+
+        }
+    };
+
     private Context context;
     private ArrayList<DownloadTask> ddList;
 
@@ -88,14 +130,14 @@ public class DownloadTaskAdapter extends ArrayAdapter<DownloadTask> {
             @Override
             public void onClick(View view) {
                 DownloadTask ddtask = (DownloadTask) holder.text.getTag();
-             //   DownloadManager.getInstance().pauseDownload(ddtask.getId());
+                DownloadManager.getInstance().pauseDownload(ddtask,listener);
             }
         });
         holder.resumeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DownloadTask ddtask = (DownloadTask) holder.text.getTag();
-           //     DownloadManager.getInstance().resumeDownload(ddtask.getId());
+                DownloadManager.getInstance().resumeDownload(ddtask,listener);
             }
         });
 
