@@ -116,7 +116,7 @@ public class MainActivity extends Activity {
     }
 
     class DownloadBroadcastReceiver extends BroadcastReceiver {
-        String SMS_RECEIVED = DownloadManager.DWONLOAD_ACTION;//"android.provider.Telephony.SMS_RECEIVED" ;
+        String SMS_RECEIVED = DownloadManager.DWONLOAD_ACTION;
 
         public void onReceive(Context context, Intent intent) {
             Log.i(SMS_RECEIVED, intent.getIntExtra("msgtype",0)+"");

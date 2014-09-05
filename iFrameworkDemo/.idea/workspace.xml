@@ -48,8 +48,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62332696" vertical-offset="1080" max-vertical-offset="2584">
-              <caret line="74" column="56" selection-start-line="74" selection-start-column="56" selection-end-line="74" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.36902484" vertical-offset="1878" max-vertical-offset="2584">
+              <caret line="118" column="62" selection-start-line="118" selection-start-column="62" selection-end-line="118" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3546#3983#0" expanded="true" />
@@ -837,12 +837,12 @@
       <workItem from="1409654815960" duration="10896000" />
       <workItem from="1409703488696" duration="16565000" />
       <workItem from="1409733729715" duration="3158000" />
-      <workItem from="1409880785872" duration="23257000" />
+      <workItem from="1409880785872" duration="23337000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95561000" />
+    <option name="totallyTimeSpent" value="95641000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1415,8 +1415,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62332696" vertical-offset="1080" max-vertical-offset="2584">
-          <caret line="74" column="56" selection-start-line="74" selection-start-column="56" selection-end-line="74" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.36902484" vertical-offset="1878" max-vertical-offset="2584">
+          <caret line="118" column="62" selection-start-line="118" selection-start-column="62" selection-end-line="118" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3546#3983#0" expanded="true" />
