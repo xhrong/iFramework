@@ -1,13 +1,9 @@
 package com.iflytek.iFramework.download.util;
 
-import com.iflytek.iFramework.logger.Logger;
-
 import java.util.Locale;
 
 /**
- * MD 加密
- *
- * @author Kevin
+ * Created by xhrong on 2014/6/28.
  */
 public class MD5 {
 
@@ -30,12 +26,9 @@ public class MD5 {
             s = new String(str).toUpperCase(Locale.ENGLISH);
 
         } catch (Exception e) {
-            //如果失败，则用原字符串
-            Logger.e("Download MD5", e.toString());
-            s = instr;
-        } finally {
-            return s;
+
         }
+        return s;
     }
 
 }

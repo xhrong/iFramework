@@ -1,4 +1,4 @@
-package com.iflytek.iFramework.download;
+package com.iflytek.iFramework.downloader;
 
 import android.content.Context;
 import android.os.Environment;
@@ -6,29 +6,19 @@ import android.os.Environment;
 import java.io.File;
 
 /**
- * Created by xhrong on 2014/6/28.
+ * Created by xhrong on 2014/9/5.
  */
 public class DownloadConfig {
-
     private String downloadSavePath;
-
     private int maxDownloadThread;
-
     private int retryTime;
+    private String downloadDBPath;
 
-    private DownloadProvider provider;
-
-    private DownloadTaskIDCreator taskIdCreator;
 
     private DownloadConfig() {
-        downloadSavePath = Environment.getExternalStorageDirectory().getPath()  + File.separator + "download";
+        downloadSavePath = Environment.getExternalStorageDirectory().getPath() + File.separator + "download";
         maxDownloadThread = 2;
         retryTime = 2;
-        taskIdCreator = new MD5DownloadTaskIDCreator();
-    }
-
-    protected void setProvider(DownloadProvider provider){
-        this.provider=provider;
     }
 
     public String getDownloadSavePath() {
@@ -43,21 +33,16 @@ public class DownloadConfig {
         return retryTime;
     }
 
-    public DownloadProvider getProvider(DownloadManager manager) {
-        if(provider == null) {
-            provider = SqlLiteDownloadProvider.getInstance(manager);
-        }
-        return provider;
+    public String getDownloadDBPath() {
+        return downloadDBPath;
     }
 
-    public DownloadTaskIDCreator getTaskIdCreator() {
-        return taskIdCreator;
-    }
 
     public static DownloadConfig getDefaultDownloadConfig() {
         DownloadConfig config = new DownloadConfig();
         return config;
     }
+
 
     public static class Builder {
 
@@ -86,13 +71,8 @@ public class DownloadConfig {
             return this;
         }
 
-        public Builder setDownloadProvider(DownloadProvider provider) {
-            config.provider = provider;
-            return this;
-        }
-
-        public Builder setDownloadTaskIDCreator(DownloadTaskIDCreator creator) {
-            config.taskIdCreator = creator;
+        public Builder setDownloadDBPath(String downloadDBPath) {
+            config.downloadDBPath = downloadDBPath;
             return this;
         }
     }

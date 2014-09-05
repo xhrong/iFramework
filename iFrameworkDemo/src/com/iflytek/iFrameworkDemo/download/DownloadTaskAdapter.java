@@ -13,6 +13,7 @@ import com.iflytek.iFramework.download.DownloadListener;
 import com.iflytek.iFramework.download.DownloadManager;
 import com.iflytek.iFramework.download.DownloadTask;
 import com.iflytek.iFrameworkDemo.R;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -26,50 +27,11 @@ public class DownloadTaskAdapter extends ArrayAdapter<DownloadTask> {
         public Button startBtn;
         public Button pauseBtn;
         public Button resumeBtn;
+        public Button cancelBtn;
         public ProgressBar pBar;
     }
 
-    private DownloadListener listener=new DownloadListener() {
-        @Override
-        public void onDownloadStart(DownloadTask task) {
 
-        }
-
-        @Override
-        public void onDownloadUpdated(DownloadTask task, long finishedSize, long trafficSpeed) {
-
-        }
-
-        @Override
-        public void onDownloadPaused(DownloadTask task) {
-
-        }
-
-        @Override
-        public void onDownloadResumed(DownloadTask task) {
-
-        }
-
-        @Override
-        public void onDownloadSuccessed(DownloadTask task) {
-
-        }
-
-        @Override
-        public void onDownloadCanceled(DownloadTask task) {
-
-        }
-
-        @Override
-        public void onDownloadFailed(DownloadTask task) {
-
-        }
-
-        @Override
-        public void onDownloadRetry(DownloadTask task) {
-
-        }
-    };
 
     private Context context;
     private ArrayList<DownloadTask> ddList;
@@ -116,6 +78,7 @@ public class DownloadTaskAdapter extends ArrayAdapter<DownloadTask> {
             viewHolder.startBtn = (Button) rowView.findViewById(R.id.btnStart);
             viewHolder.pauseBtn = (Button) rowView.findViewById(R.id.btnPause);
             viewHolder.resumeBtn = (Button) rowView.findViewById(R.id.btnResume);
+            viewHolder.cancelBtn=(Button)rowView.findViewById(R.id.btnCancel);
             viewHolder.pBar = (ProgressBar) rowView.findViewById(R.id.progressBar);
             viewHolder.text.setTag(ddt);
             rowView.setTag(viewHolder);
@@ -130,26 +93,39 @@ public class DownloadTaskAdapter extends ArrayAdapter<DownloadTask> {
             @Override
             public void onClick(View view) {
                 DownloadTask ddtask = (DownloadTask) holder.text.getTag();
-                DownloadManager.getInstance().pauseDownload(ddtask,listener);
+                DownloadManager.getInstance().pauseDownload(ddtask.getId());
             }
         });
         holder.resumeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DownloadTask ddtask = (DownloadTask) holder.text.getTag();
-                DownloadManager.getInstance().resumeDownload(ddtask,listener);
+                DownloadManager.getInstance().resumeDownload(ddtask.getId());
+            }
+        });
+        holder.cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DownloadTask ddtask = (DownloadTask) holder.text.getTag();
+                DownloadManager.getInstance().cancelDownload(ddtask.getId());
             }
         });
 
         holder.startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DownloadTask ddtask = (DownloadTask) holder.text.getTag();
-                // if(ddtask.getStatus()==DownloadTask.STATUS_FINISHED){//如果结束了，则重新下载
-             //   ddtask.setStatus(DownloadTask.STATUS_RESTART);
-                //  }
+                DownloadTask d = (DownloadTask) holder.text.getTag();
+                DownloadTask ddtask=new DownloadTask();
+                ddtask.setName(d.getName());
+                ddtask.setUrl(d.getUrl());
+                ddtask.setDownloadSavePath(d.getDownloadSavePath());
+                ddtask.setId(d.getId());
+
+                if (ddtask.getStatus() == DownloadTask.STATUS_FINISHED || ddtask.getStatus()==DownloadTask.STATUS_ERROR) {//如果结束了，则重新下载
+                    ddtask.setStatus(DownloadTask.STATUS_RUNNING);
+                }
                 String customParam = "{\"fileType\":\"zip\"}";
-              //  ddtask.setCustomParam(customParam);
+                ddtask.setCustomParam(customParam);
                 DownloadManager.getInstance().addDownloadTask(ddtask, new DownloadListener() {
 
                     @Override
@@ -182,14 +158,14 @@ public class DownloadTaskAdapter extends ArrayAdapter<DownloadTask> {
                         holder.text.setText(task.getName() + "finish");
                         holder.pBar.setProgress(100);
                         JSONObject jsonObject;
-//                        try{
-//                            jsonObject=new JSONObject(task.getCustomParam());
-//                           if(jsonObject.getString("fileType").equals("zip")){
-//                                Log.i("FileTypt","可以解ZIP了");
-//                            }
-//                        }catch (JSONException e){
-//                            e.printStackTrace();
-//                        }
+                        try{
+                            jsonObject=new JSONObject(task.getCustomParam());
+                           if(jsonObject.getString("fileType").equals("zip")){
+                                Log.i("FileTypt","可以解ZIP了");
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
 
                     }
 

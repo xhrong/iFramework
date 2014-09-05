@@ -1,7 +1,8 @@
-package com.iflytek.iFramework.download;
+package com.iflytek.iFramework.downloader;
 
 import android.text.TextUtils;
-import com.iflytek.iFramework.download.util.FileUtil;
+import com.iflytek.iFramework.download.util.StringUtil;
+import com.iflytek.iFramework.utils.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by xhrong on 2014/6/28.
+ * Created by xhrong on 2014/9/5.
  */
 public class DownloadOperator implements Runnable {
 
@@ -112,7 +113,7 @@ public class DownloadOperator implements Runnable {
                         prevTime = System.currentTimeMillis();
                         task.setDownloadFinishedSize(total);
                         task.setDownloadSpeed(speed);
-                        manager.updateDownloadTask(task, total, speed);
+                        manager.onUpdatedDownloadTask(task, total, speed);
                     }
                 }
                 task.setDownloadFinishedSize(total);
@@ -138,17 +139,22 @@ public class DownloadOperator implements Runnable {
 
     private RandomAccessFile buildDownloadFile() throws IOException {
         String fileName = FileUtil.getFileNameByUrl(task.getUrl());
-
+        File file;
         //优先使用任务中设定的文件保存路径，如果没有，则用默认路径
         String fileSavePath = task.getDownloadSavePath();
-        File file = new File(fileSavePath);
-        if (file.isDirectory()) {
-            file = new File(fileSavePath, fileName);
-        } else if (file.isFile()) {
-            //不用处理
-        } else {
+        if(!StringUtil.isEmpty(fileSavePath)) {
+             file = new File(fileSavePath);
+            if (file.isDirectory()) {
+                file = new File(fileSavePath, fileName);
+            } else if (file.isFile()) {
+                //不用处理
+            }else{
+                throw new IllegalArgumentException("invalid file path: " +fileSavePath);
+            }
+        }else {
             file = new File(manager.getConfig().getDownloadSavePath(), fileName);
         }
+
         if (!file.getParentFile().isDirectory() && !file.getParentFile().mkdirs()) {
             throw new IOException("cannot create download folder");
         }
@@ -173,7 +179,6 @@ public class DownloadOperator implements Runnable {
         if(task.getDownloadFinishedSize() != 0) {
             conn.setRequestProperty("Range", "bytes=" + task.getDownloadFinishedSize() + "-");
         }
-
         return conn;
     }
 

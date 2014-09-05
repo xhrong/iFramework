@@ -4,13 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
-import com.iflytek.iFramework.download.DownloadConfig;
-import com.iflytek.iFramework.download.DownloadManager;
+import com.iflytek.iFramework.downloader.DownloadConfig;
+import com.iflytek.iFramework.downloader.DownloadManager;
 import com.iflytek.iFramework.logger.Logger;
 import com.iflytek.iFramework.ui.universalimageloader.core.DisplayImageOptions;
 import com.iflytek.iFramework.ui.universalimageloader.core.ImageLoader;
 import com.iflytek.iFramework.ui.universalimageloader.core.ImageLoaderConfiguration;
-import com.iflytek.iFrameworkDemo.download.IDCreator;
 
 import java.io.File;
 
@@ -23,7 +22,9 @@ public class DemoApplication extends Application {
         super.onCreate();
         initLogger();
         intiImageLoader(getApplicationContext());
-        initDownloader();
+
+      //  DownloadManager.getInstance(getApplicationContext()).init();//这是默认配置
+        initDownloader();//自定义配置
     }
 
     private void intiImageLoader(Context context) {
@@ -50,12 +51,8 @@ public class DemoApplication extends Application {
     }
 
     private void initDownloader(){
-        DownloadManager downloadMgr = DownloadManager.getInstance();
+       DownloadManager downloadMgr = DownloadManager.getInstance(getApplicationContext());
 
-        // use default configuration
-        //downloadMgr.init();
-
-        // custom configuration
         DownloadConfig.Builder builder = new DownloadConfig.Builder(this);
         String downloadPath = null;
         if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
@@ -69,8 +66,7 @@ public class DemoApplication extends Application {
         }
         builder.setDownloadSavePath(downloadPath);
         builder.setMaxDownloadThread(3);
-        builder.setDownloadTaskIDCreator(new IDCreator());
-
+        builder.setDownloadDBPath(downloadPath);
         downloadMgr.init(builder.build());
     }
 }

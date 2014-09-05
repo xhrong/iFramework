@@ -3,9 +3,7 @@ package com.iflytek.iFramework.download.util;
 import java.util.regex.Pattern;
 
 /**
- * common string utils
- * @author Kevin
- *
+ * Created by xhrong on 2014/6/28.
  */
 public class StringUtil {
 

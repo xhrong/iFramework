@@ -1,4 +1,6 @@
-package com.iflytek.iFramework.download.util;
+package com.iflytek.iFramework.utils;
+
+import com.iflytek.iFramework.download.util.StringUtil;
 
 import java.io.File;
 import java.util.UUID;

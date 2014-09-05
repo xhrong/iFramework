@@ -1,10 +1,10 @@
-package com.iflytek.iFramework.download;
+package com.iflytek.iFramework.downloader;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,24 +12,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by xhrong on 2014/6/28.
+ * Created by xhrong on 2014/9/5.
  */
-public class SqlLiteDownloadProvider implements DownloadProvider {
+public class DownloadDAO {
 
-    private static SqlLiteDownloadProvider instance;
+    private static DownloadDAO instance;
 
-    private DownloadManager manager;
-
-    private String DOWNLOAD_TABLE = "tb_download";
-
+    private static String DOWNLOAD_TABLE = "tb_download";
+    private static String DB_NAME = "download.db";
     private SQLiteDatabase db;
 
-    private SqlLiteDownloadProvider(DownloadManager manager) {
-        this.manager = manager;
-        File dbFile = new File(manager.getConfig().getDownloadSavePath(), "download.db");
-        if (dbFile.exists()) {
-            db = SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
+    private DownloadManager downloadManager;
+
+    private DownloadDAO(DownloadManager downloadManager) {
+        this.downloadManager = downloadManager;
+        createDb();
+        createTables();
+    }
+
+    public static synchronized DownloadDAO getInstance(DownloadManager downloadManager) {
+        if (instance == null) {
+            instance = new DownloadDAO(downloadManager);
+        }
+        return instance;
+    }
+
+    //TODO:这个地方需要进一步优化处理
+    private void createDb() {
+        Context context = downloadManager.getContext();
+        DownloadConfig config = downloadManager.getConfig();
+        if (config.getDownloadDBPath()==null || config.getDownloadDBPath().isEmpty()) {
+            db = context.openOrCreateDatabase(DB_NAME, Context.MODE_PRIVATE, null);
+            if (db == null) {
+                throw new IllegalAccessError("cannot create database file of path: " + DB_NAME);
+            }
         } else {
+            File dbFile = new File(config.getDownloadDBPath());
+            if (!dbFile.isFile()) {
+                dbFile = new File(config.getDownloadDBPath(), DB_NAME);
+            }
             if (!dbFile.getParentFile().isDirectory()) {
                 dbFile.getParentFile().mkdirs();
             }
@@ -42,15 +63,22 @@ public class SqlLiteDownloadProvider implements DownloadProvider {
             }
         }
 
-        createTables();
-    }
 
-    public static synchronized SqlLiteDownloadProvider getInstance(DownloadManager manager) {
-        if (instance == null) {
-            instance = new SqlLiteDownloadProvider(manager);
-        }
-
-        return instance;
+//        File dbFile = new File(Environment.getExternalStorageDirectory(), DB_NAME);
+//        if (dbFile.exists()) {
+//            db = SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
+//        } else {
+//            if (!dbFile.getParentFile().isDirectory()) {
+//                dbFile.getParentFile().mkdirs();
+//            }
+//            try {
+//                dbFile.createNewFile();
+//                db = SQLiteDatabase.openOrCreateDatabase(dbFile, null);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                throw new IllegalAccessError("cannot create database file of path: " + dbFile.getAbsolutePath());
+//            }
+//        }
     }
 
     private void createTables() {
@@ -70,24 +98,21 @@ public class SqlLiteDownloadProvider implements DownloadProvider {
         db.execSQL(buffer.toString());
     }
 
+
     public void saveDownloadTask(DownloadTask task) {
-        printDb();
+        //   printDb();
         ContentValues values = createDownloadTaskValues(task);
         db.insert(DOWNLOAD_TABLE, null, values);
-
-        notifyDownloadStatusChanged(task);
     }
 
     public void deleteDownloadTask(DownloadTask task) {
         db.delete(DOWNLOAD_TABLE, DownloadTask.ID + "=?", new String[]{task.getId()});
-        notifyDownloadStatusChanged(task);
-        printDb();
+        //    printDb();
     }
 
     public void updateDownloadTask(DownloadTask task) {
         ContentValues values = createDownloadTaskValues(task);
         db.update(DOWNLOAD_TABLE, values, DownloadTask.ID + "=?", new String[]{task.getId()});
-        notifyDownloadStatusChanged(task);
     }
 
 
@@ -116,9 +141,6 @@ public class SqlLiteDownloadProvider implements DownloadProvider {
         return task;
     }
 
-    public void notifyDownloadStatusChanged(DownloadTask task) {
-         manager.notifyDownloadTaskStatusChanged(task);
-    }
 
     public List<DownloadTask> getAllDownloadTask() {
         List<DownloadTask> list = new ArrayList<DownloadTask>();
@@ -161,10 +183,10 @@ public class SqlLiteDownloadProvider implements DownloadProvider {
         return task;
     }
 
-    private void printDb() {
-        List<DownloadTask> list = getAllDownloadTask();
-        for (int i = 0; i < list.size(); i++) {
-            Log.i("DataContent", list.get(i).toString());
-        }
-    }
+//    private void printDb() {
+//        List<DownloadTask> list = getAllDownloadTask();
+//        for (int i = 0; i < list.size(); i++) {
+//            Log.i("DataContent", list.get(i).toString());
+//        }
+//    }
 }

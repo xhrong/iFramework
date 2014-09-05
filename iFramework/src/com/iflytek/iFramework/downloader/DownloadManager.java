@@ -1,57 +1,56 @@
-package com.iflytek.iFramework.download;
+package com.iflytek.iFramework.downloader;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by xhrong on 2014/6/28.
+ * Created by xhrong on 2014/9/5.
  */
-
-
 public class DownloadManager {
 
     private static final String TAG = "DownloadManager";
+    public static final String DWONLOAD_ACTION = "com.iflytek.iFramework.downloader.broadcast";
 
     private static DownloadManager instance;
-
+    private static DownloadDAO dao;
     private DownloadConfig config;
+    private ExecutorService pool;
+    private Context context;
 
     private HashMap<String, DownloadTask> downloadTasks = new HashMap<String, DownloadTask>();
     private HashMap<String, DownloadOperator> taskOperators = new HashMap<String, DownloadOperator>();
-    private HashMap<String, DownloadListener> taskListeners = new HashMap<String, DownloadListener>();
-    private LinkedList<DownloadObserver> taskObservers = new LinkedList<DownloadObserver>();
-
-    private DownloadProvider provider;
-
     private static Handler handler = new Handler();
 
-    private ExecutorService pool;
 
-    public DownloadManager() {
-
+    private DownloadManager(Context context) {
+        this.context = context;
     }
 
-    public static synchronized DownloadManager getInstance() {
+    public static synchronized DownloadManager getInstance(Context context) {
         if (instance == null) {
-            instance = new DownloadManager();
+            instance = new DownloadManager(context);
         }
         return instance;
+    }
+
+    public Context getContext(){
+        return context;
     }
 
     /**
      * 默认设置
      */
     public void init() {
-        config = DownloadConfig.getDefaultDownloadConfig();
-        provider = config.getProvider(this);
-        pool = Executors.newFixedThreadPool(config.getMaxDownloadThread());
+        init(DownloadConfig.getDefaultDownloadConfig());
     }
 
     /**
@@ -61,12 +60,12 @@ public class DownloadManager {
      */
     public void init(DownloadConfig config) {
         if (config == null) {
-            init();
-            return;
+            this.config = DownloadConfig.getDefaultDownloadConfig();
+        }else{
+            this.config = config;
         }
-        this.config = config;
-        provider = config.getProvider(this);
         pool = Executors.newFixedThreadPool(config.getMaxDownloadThread());
+        dao = DownloadDAO.getInstance(this);
     }
 
     public DownloadConfig getConfig() {
@@ -75,16 +74,18 @@ public class DownloadManager {
 
     public void setConfig(DownloadConfig config) {
         this.config = config;
+        pool = Executors.newFixedThreadPool(config.getMaxDownloadThread());
     }
 
 
     /**
      * 添加下载任务
      *
-     * @param task
-     * @param listener 任务监听器
+     * @param newTask
      */
-    public void addDownloadTask(DownloadTask task, DownloadListener listener) {
+    public void addDownloadTask(DownloadTask newTask) {
+        //这里对Task进行了复制，为了不改变传入的任务状态
+        DownloadTask task = (DownloadTask) newTask.clone();
         //如果没有下载地下载，就不要添加任务了
         if (TextUtils.isEmpty(task.getUrl())) {
             throw new IllegalArgumentException("task's url cannot be empty");
@@ -95,21 +96,19 @@ public class DownloadManager {
         }
         //如果这个任务已经存在了，就不要添加了
         if (taskOperators.containsKey(task.getId())) {
-            if (listener != null) {
-                taskListeners.put(task.getId(), listener);
-            }
             return;
         }
+
 
         Log.v(TAG, "addDownloadTask: " + task.getName());
 
         //查询是否有下载记录
-        DownloadTask historyTask = provider.findDownloadTaskById(task.getId());
+        DownloadTask historyTask = dao.findDownloadTaskById(task.getId());
         if (historyTask == null) {
-            provider.saveDownloadTask(task);
+            dao.saveDownloadTask(task);
         } else {
-            if (historyTask.getStatus() == DownloadTask.STATUS_FINISHED
-                    || historyTask.getStatus() == DownloadTask.STATUS_ERROR
+            if (historyTask.getStatus() == com.iflytek.iFramework.download.DownloadTask.STATUS_FINISHED
+                    || historyTask.getStatus() == com.iflytek.iFramework.download.DownloadTask.STATUS_ERROR
                     || historyTask.getDownloadTotalSize() <= historyTask.getDownloadFinishedSize()) {//如果该任务已经完成了，则重新下载
                 task.setDownloadFinishedSize(0);
                 task.setDownloadTotalSize(0);
@@ -117,62 +116,16 @@ public class DownloadManager {
                 task.setDownloadFinishedSize(historyTask.getDownloadFinishedSize());
                 task.setDownloadTotalSize(historyTask.getDownloadTotalSize());
             }
-            provider.updateDownloadTask(task);
+            dao.updateDownloadTask(task);
         }
         //记录任务
         downloadTasks.put(task.getId(), task);
         DownloadOperator operator = new DownloadOperator(this, task);
         taskOperators.put(task.getId(), operator);
-        if (listener != null) {
-            taskListeners.put(task.getId(), listener);
-        }
-
         task.setStatus(DownloadTask.STATUS_PENDDING);
         pool.submit(operator);
     }
 
-    /**
-     * 获取任务的监听器
-     *
-     * @param taskId
-     * @return
-     */
-    public DownloadListener getDownloadListenerByTaskId(String taskId) {
-        if (TextUtils.isEmpty(taskId)) {
-            return null;
-        }
-        return taskListeners.get(taskId);
-    }
-
-    /**
-     * 更新任务监听器
-     *
-     * @param taskId
-     * @param listener
-     */
-    public void updateDownloadTaskListener(String taskId, DownloadListener listener) {
-        Log.v(TAG, "try to updateDownloadTaskListener");
-        if (TextUtils.isEmpty(taskId) || !taskOperators.containsKey(taskId)) {
-            return;
-        }
-        Log.v(TAG, "updateDownloadTaskListener");
-        //HashMap，会直接替换掉对就的值
-        taskListeners.put(taskId, listener);
-    }
-
-    /**
-     * 移除任务监听器
-     *
-     * @param taskId
-     */
-    public void removeDownloadTaskListener(String taskId) {
-        Log.v(TAG, "try to removeDownloadTaskListener");
-        if (TextUtils.isEmpty(taskId) || !taskListeners.containsKey(taskId)) {
-            return;
-        }
-        Log.v(TAG, "removeDownloadTaskListener");
-        taskListeners.remove(taskId);
-    }
 
     public void pauseDownload(String taskId) {
         Log.v(TAG, "pauseDownload: " + taskId);
@@ -198,8 +151,8 @@ public class DownloadManager {
         } else {//取消没有和下载器关联的任务
             if (downloadTasks.containsKey(taskId)) {
                 DownloadTask task = downloadTasks.get(taskId);
-                task.setStatus(DownloadTask.STATUS_CANCELED);
-                provider.updateDownloadTask(task);
+                task.setStatus(com.iflytek.iFramework.download.DownloadTask.STATUS_CANCELED);
+                dao.updateDownloadTask(task);
             }
         }
     }
@@ -209,39 +162,16 @@ public class DownloadManager {
             return downloadTasks.get(taskId);
         }
         Log.v(TAG, "findDownloadTaskByAdId from provider");
-        return provider.findDownloadTaskById(taskId);
+        return dao.findDownloadTaskById(taskId);
     }
 
     public List<DownloadTask> getAllDownloadTask() {
-        return provider.getAllDownloadTask();
+        return dao.getAllDownloadTask();
     }
 
-    public void registerDownloadObserver(DownloadObserver observer) {
-        if (observer == null) {
-            return;
-        }
-        taskObservers.add(observer);
-    }
-
-    public void unregisterDownloadObserver(DownloadObserver observer) {
-        if (observer == null) {
-            return;
-        }
-        taskObservers.remove(observer);
-    }
 
     public void close() {
         pool.shutdownNow();
-    }
-
-    public void notifyDownloadTaskStatusChanged(final DownloadTask task) {
-        handler.post(new Runnable() {
-            public void run() {
-                for (DownloadObserver observer : taskObservers) {
-                    observer.onDownloadTaskStatusChanged(task);
-                }
-            }
-        });
     }
 
     /**
@@ -251,18 +181,15 @@ public class DownloadManager {
      * @param finishedSize 已经下载大小
      * @param trafficSpeed 下载速度
      */
-    void updateDownloadTask(final DownloadTask task, final long finishedSize, final long trafficSpeed) {
+    void onUpdatedDownloadTask(final DownloadTask task, final long finishedSize, final long trafficSpeed) {
         task.setStatus(DownloadTask.STATUS_RUNNING);
-        final DownloadListener listener = taskListeners.get(task.getId());
-        //    Log.i(TAG,"finished Size"+finishedSize);
+        Log.i(TAG, "finished Size" + finishedSize);
         handler.post(new Runnable() {
-
             @Override
             public void run() {
-                provider.updateDownloadTask(task);
-                if (listener != null) {
-                    listener.onDownloadUpdated(task, finishedSize, trafficSpeed);
-                }
+                dao.updateDownloadTask(task);
+
+                sendDownloadBroadcast(DownloadTask.STATUS_RUNNING, task);
             }
 
         });
@@ -270,15 +197,11 @@ public class DownloadManager {
 
     void onDownloadStarted(final DownloadTask task) {
         task.setStatus(DownloadTask.STATUS_RUNNING);
-        final DownloadListener listener = taskListeners.get(task.getId());
         handler.post(new Runnable() {
-
             @Override
             public void run() {
-                provider.updateDownloadTask(task);
-                if (listener != null) {
-                    listener.onDownloadStart(task);
-                }
+                dao.updateDownloadTask(task);
+                sendDownloadBroadcast(DownloadTask.STATUS_STARTED, task);
             }
         });
     }
@@ -286,63 +209,46 @@ public class DownloadManager {
 
     void onDownloadPaused(final DownloadTask task) {
         task.setStatus(DownloadTask.STATUS_PAUSED);
-        final DownloadListener listener = taskListeners.get(task.getId());
         handler.post(new Runnable() {
-
             @Override
             public void run() {
-                provider.updateDownloadTask(task);
-                if (listener != null) {
-                    listener.onDownloadPaused(task);
-                }
+                dao.updateDownloadTask(task);
+                sendDownloadBroadcast(DownloadTask.STATUS_PAUSED, task);
             }
         });
     }
 
     void onDownloadResumed(final DownloadTask task) {
         task.setStatus(DownloadTask.STATUS_RUNNING);
-        final DownloadListener listener = taskListeners.get(task.getId());
         handler.post(new Runnable() {
-
             @Override
             public void run() {
-                provider.updateDownloadTask(task);
-                if (listener != null) {
-                    listener.onDownloadResumed(task);
-                }
+                dao.updateDownloadTask(task);
+                sendDownloadBroadcast(DownloadTask.STATUS_RESUMED, task);
             }
         });
     }
 
     void onDownloadCanceled(final DownloadTask task) {
         task.setStatus(DownloadTask.STATUS_CANCELED);
-        final DownloadListener listener = taskListeners.get(task.getId());
         removeTask(task.getId());
         handler.post(new Runnable() {
-
             @Override
             public void run() {
-                provider.updateDownloadTask(task);
-                if (listener != null) {
-                    listener.onDownloadCanceled(task);
-                }
-
+                dao.deleteDownloadTask(task);
+                sendDownloadBroadcast(DownloadTask.STATUS_CANCELED, task);
             }
         });
     }
 
     void onDownloadSuccessed(final DownloadTask task) {
         task.setStatus(DownloadTask.STATUS_FINISHED);
-        final DownloadListener listener = taskListeners.get(task.getId());
         removeTask(task.getId());
         handler.post(new Runnable() {
-
             @Override
             public void run() {
-                provider.updateDownloadTask(task);
-                if (listener != null) {
-                    listener.onDownloadSuccessed(task);
-                }
+                dao.updateDownloadTask(task);
+                sendDownloadBroadcast(DownloadTask.STATUS_FINISHED, task);
             }
 
         });
@@ -350,37 +256,38 @@ public class DownloadManager {
 
     void onDownloadFailed(final DownloadTask task) {
         task.setStatus(DownloadTask.STATUS_ERROR);
-        final DownloadListener listener = taskListeners.get(task.getId());
         removeTask(task.getId());
         handler.post(new Runnable() {
-
             @Override
             public void run() {
-                provider.updateDownloadTask(task);
-                if (listener != null) {
-                    listener.onDownloadFailed(task);
-                }
+                dao.updateDownloadTask(task);
+                sendDownloadBroadcast(DownloadTask.STATUS_ERROR, task);
             }
         });
     }
 
     void onDownloadRetry(final DownloadTask task) {
-        final DownloadListener listener = taskListeners.get(task.getId());
         handler.post(new Runnable() {
-
             @Override
             public void run() {
-                if (listener != null) {
-                    listener.onDownloadRetry(task);
-                }
+                sendDownloadBroadcast(DownloadTask.STATUS_RETRY, task);
             }
         });
     }
 
     private void removeTask(String taskID) {
         taskOperators.remove(taskID);
-        taskListeners.remove(taskID);
         downloadTasks.remove(taskID);
+    }
+
+    private void sendDownloadBroadcast(int msgType, DownloadTask task) {
+        Intent intent = new Intent();
+        intent.setAction(DWONLOAD_ACTION);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("task", task);
+        intent.putExtras(bundle);
+        intent.putExtra("msgtype", msgType);
+        context.sendBroadcast(intent);//传递过去
     }
 
 }
