@@ -7,6 +7,7 @@
 - **Database**:目前集成的是Afinal框架中的finalDb模块，该模块使用简单，入门快
 - **UI**:该模块主要收集了一些常用的UI组件或扩展，目前主要有Pull To Refresh Views for Android、Android Touch Gallery、Universal Image Loader for Android
 - **Logger**:主要是用于将程序信息，记录成日志文件，方便程序发布后的问题跟踪。非Github项目，代码简单，建议直接阅读。
+- **Downloader**：Android下载组件，支持暂停、恢复、取消操作
 - **Utils**:暂无内容
 
 
@@ -167,6 +168,134 @@ logger组件主要是用于将程序信息，记录成日志文件，方便程�
 	public static int level = Log.ERROR; 
 ```
 建议在程序的Application类中配置两个参数，方便日志的整体控制。
+
+### Downloader模块
+该模块通过线程进行文件下载，目前支持下载任务的暂停、恢复和取消，使用方便，扩展性较好。
+####Features
+* 1、支持断点续传
+* 2、支持暂停、恢复、取消
+* 3、可通过配置文件指定下载路径，下载数据库路径
+* 4、支持携带额外参数，方便下载任务完成后的进一步处理
+* 5、支持多任务并发下载，可配置并发数
+
+#### Examples
+```java
+        IntentFilter intentFilter = new IntentFilter(DownloadManager.DWONLOAD_ACTION);
+        //注册广播接收器
+        registerReceiver(receiver, intentFilter);
+        setContentView(R.layout.downloadlib_main_layout);
+        taskList = SourceProvicer.getTaskList();
+        adapter = new DownloadTaskAdapter(this, taskList);
+        setListAdapter(adapter);
+```
+```java
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        final DownloadTask ddt = ddList.get(position);
+        View rowView = convertView;
+        // reuse views
+        if (rowView == null) {
+
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            rowView = inflater.inflate(R.layout.downloadlib_item_layout, parent, false);
+
+            ViewHolder viewHolder = new ViewHolder();
+            viewHolder.text = (TextView) rowView.findViewById(R.id.textView);
+            viewHolder.startBtn = (Button) rowView.findViewById(R.id.btnStart);
+            viewHolder.pauseBtn = (Button) rowView.findViewById(R.id.btnPause);
+            viewHolder.resumeBtn = (Button) rowView.findViewById(R.id.btnResume);
+            viewHolder.cancelBtn = (Button) rowView.findViewById(R.id.btnCancel);
+            viewHolder.pBar = (ProgressBar) rowView.findViewById(R.id.progressBar);
+            viewHolder.text.setTag(ddt);
+            rowView.setTag(viewHolder);
+        }
+
+
+        final ViewHolder holder = (ViewHolder) rowView.getTag();
+
+        holder.text.setText(ddt.getName());
+        holder.pBar.setProgress((int) (ddt.getDownloadFinishedSize() * 100 / (ddt.getDownloadTotalSize() > 0 ? ddt.getDownloadTotalSize() : 1)));
+
+        holder.pauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DownloadTask ddtask = (DownloadTask) holder.text.getTag();
+                DownloadManager.getInstance(getContext()).pauseDownload(ddtask.getId());
+            }
+        });
+        holder.resumeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DownloadTask ddtask = (DownloadTask) holder.text.getTag();
+                DownloadManager.getInstance(getContext()).resumeDownload(ddtask.getId());
+            }
+        });
+        holder.cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DownloadTask ddtask = (DownloadTask) holder.text.getTag();
+                DownloadManager.getInstance(getContext()).cancelDownload(ddtask.getId());
+            }
+        });
+
+        holder.startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DownloadTask d = (DownloadTask) holder.text.getTag();
+                DownloadTask ddtask = new DownloadTask();
+                ddtask.setName(d.getName());
+                ddtask.setUrl(d.getUrl());
+                ddtask.setDownloadSavePath(d.getDownloadSavePath());
+                ddtask.setId(d.getId());
+                String customParam = "{\"fileType\":\"zip\"}";
+                ddtask.setCustomParam(customParam);
+
+                if (ddtask.getStatus() == DownloadTask.STATUS_FINISHED || ddtask.getStatus() == DownloadTask.STATUS_ERROR) {//如果结束了，则重新下载
+                    ddtask.setStatus(DownloadTask.STATUS_RUNNING);
+                }
+                DownloadManager.getInstance(getContext()).addDownloadTask(ddtask);
+            }
+        });
+        return rowView;
+    }
+```
+
+```java
+class DownloadBroadcastReceiver extends BroadcastReceiver {
+
+        public void onReceive(Context context, Intent intent) {
+            DownloadTask task = (DownloadTask) intent.getSerializableExtra("task");
+            int msgType = task.getStatus();
+            //更新数据源
+            for (DownloadTask t : taskList) {
+                if (t.getId().equals(task.getId())) {
+                    t.setCustomParam(task.getCustomParam());
+                    t.setDownloadFinishedSize(task.getDownloadFinishedSize());
+                    t.setDownloadSavePath(task.getDownloadSavePath());
+                    t.setDownloadSpeed(task.getDownloadSpeed());
+                    t.setDownloadTotalSize(task.getDownloadTotalSize());
+                    t.setStatus(task.getStatus());
+                }
+            }
+            if (msgType == DownloadTask.STATUS_FINISHED) {
+                Toast.makeText(context, task.getId() + "下载成功", Toast.LENGTH_LONG).show();
+                if (!task.getCustomParam().isEmpty()) {
+                    Log.i(TAG, task.getCustomParam());//这里可以做特殊处理了。比如解压、打开
+                }
+            } else if (msgType == DownloadTask.STATUS_CANCELED) {
+                Toast.makeText(context, task.getId() + "取消下载", Toast.LENGTH_LONG).show();
+            }
+            synchronized (STOP) {
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+```
+
+详见：https://github.com/xhrong/iFramework/blob/master/iFrameworkDemo/src/com/iflytek/iFrameworkDemo/MainActivity.java
 
 -------
 ## 反馈与建议
