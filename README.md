@@ -8,7 +8,7 @@
 - **UI**:该模块主要收集了一些常用的UI组件或扩展，目前主要有Pull To Refresh Views for Android、Android Touch Gallery、Universal Image Loader for Android
 - **Logger**:主要是用于将程序信息，记录成日志文件，方便程序发布后的问题跟踪。非Github项目，代码简单，建议直接阅读。
 - **Downloader**：Android下载组件，支持暂停、恢复、取消操作
-- **Utils**:暂无内容
+- **Utils**:暂无内容 
 
 
 该组件集会根据项目使用需要，动态地添加相关组件。
