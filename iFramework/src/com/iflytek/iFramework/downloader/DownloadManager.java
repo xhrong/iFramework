@@ -107,8 +107,8 @@ public class DownloadManager {
         if (historyTask == null) {
             dao.saveDownloadTask(task);
         } else {
-            if (historyTask.getStatus() == com.iflytek.iFramework.download.DownloadTask.STATUS_FINISHED
-                    || historyTask.getStatus() == com.iflytek.iFramework.download.DownloadTask.STATUS_ERROR
+            if (historyTask.getStatus() == DownloadTask.STATUS_FINISHED
+                    || historyTask.getStatus() == DownloadTask.STATUS_ERROR
                     || historyTask.getDownloadTotalSize() <= historyTask.getDownloadFinishedSize()) {//如果该任务已经完成了，则重新下载
                 task.setDownloadFinishedSize(0);
                 task.setDownloadTotalSize(0);

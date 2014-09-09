@@ -1,8 +1,8 @@
 package com.iflytek.iFramework.downloader;
 
 import android.text.TextUtils;
-import com.iflytek.iFramework.download.util.StringUtil;
 import com.iflytek.iFramework.utils.FileUtil;
+import com.iflytek.iFramework.utils.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -142,7 +142,7 @@ public class DownloadOperator implements Runnable {
         File file;
         //优先使用任务中设定的文件保存路径，如果没有，则用默认路径
         String fileSavePath = task.getDownloadSavePath();
-        if(!StringUtil.isEmpty(fileSavePath)) {
+        if(!StringUtils.isEmpty(fileSavePath)) {
              file = new File(fileSavePath);
             if (file.isDirectory()) {
                 file = new File(fileSavePath, fileName);

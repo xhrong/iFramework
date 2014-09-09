@@ -24,6 +24,7 @@ public class MainActivity extends ListActivity {
      * Called when the activity is first created.
      */
 
+    String TAG = "MainActivity";
 
     TextView text;
     Button startBtn;
@@ -46,29 +47,12 @@ public class MainActivity extends ListActivity {
         //  setContentView(R.layout.download_simple_layout);
         IntentFilter intentFilter = new IntentFilter(DownloadManager.DWONLOAD_ACTION);
         registerReceiver(receiver, intentFilter);
-
         //   init();
 
         setContentView(R.layout.downloadlib_main_layout);
-
         taskList = SourceProvicer.getTaskList();
         adapter = new DownloadTaskAdapter(this, taskList);
         setListAdapter(adapter);
-
-
-//        setContentView(R.layout.main);
-//        FinalDb db = FinalDb.create(this, Environment.getExternalStorageDirectory()+"/iflytek/","qmy.db");
-//
-//        User user = new User();
-//        user.setEmail("afinal@tsz.net");
-//        user.setName("探索者");
-//        user.setRegisterDate(new Date());
-//
-//        db.save(user);
-//
-//        List<User> userList = db.findAll(User.class);//查询所有的用户
-//
-//        Logger.e("AfinalOrmDemoActivity", "用户数量："+ (userList!=null?userList.size():0));
     }
 
     @Override
@@ -131,13 +115,11 @@ public class MainActivity extends ListActivity {
     }
 
     class DownloadBroadcastReceiver extends BroadcastReceiver {
-        String SMS_RECEIVED = DownloadManager.DWONLOAD_ACTION;
 
         public void onReceive(Context context, Intent intent) {
-
-
             DownloadTask task = (DownloadTask) intent.getSerializableExtra("task");
-            int msgType =task.getStatus();
+            int msgType = task.getStatus();
+            //更新数据源
             for (DownloadTask t : taskList) {
                 if (t.getId().equals(task.getId())) {
                     t.setCustomParam(task.getCustomParam());
@@ -148,15 +130,13 @@ public class MainActivity extends ListActivity {
                     t.setStatus(task.getStatus());
                 }
             }
-           if (msgType == DownloadTask.STATUS_FINISHED) {
-                //  pBar.setProgress(100);
-                Toast.makeText(context,task.getId()+ "下载成功", Toast.LENGTH_LONG).show();
+            if (msgType == DownloadTask.STATUS_FINISHED) {
+                Toast.makeText(context, task.getId() + "下载成功", Toast.LENGTH_LONG).show();
                 if (!task.getCustomParam().isEmpty()) {
-                    Log.i(SMS_RECEIVED, task.getCustomParam());
+                    Log.i(TAG, task.getCustomParam());//这里可以做特殊处理了。比如解压、打开
                 }
             } else if (msgType == DownloadTask.STATUS_CANCELED) {
-              //  pBar.setProgress(0);
-                Toast.makeText(context,task.getId()+ "取消下载", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, task.getId() + "取消下载", Toast.LENGTH_LONG).show();
             }
             synchronized (STOP) {
                 adapter.notifyDataSetChanged();

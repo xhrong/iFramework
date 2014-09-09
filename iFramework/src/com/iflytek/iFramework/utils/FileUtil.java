@@ -1,6 +1,5 @@
 package com.iflytek.iFramework.utils;
 
-import com.iflytek.iFramework.download.util.StringUtil;
 
 import java.io.File;
 import java.util.UUID;
@@ -17,7 +16,7 @@ public class FileUtil {
      * @return
      */
     public static String getFileNameByUrl(String url) {
-        if (StringUtil.isEmpty(url)) {
+        if (StringUtils.isEmpty(url)) {
             return null;
         }
         int index = url.lastIndexOf('?');
@@ -35,7 +34,7 @@ public class FileUtil {
      * @return
      */
     public static String getFileExtendName(String fileName) {
-        if (StringUtil.isEmpty(fileName)) {
+        if (StringUtils.isEmpty(fileName)) {
             return null;
         }
         int index = fileName.lastIndexOf('.');
@@ -47,7 +46,7 @@ public class FileUtil {
     }
 
     public static boolean isFileExists(String filePath) {
-        if (StringUtil.isEmpty(filePath)) {
+        if (StringUtils.isEmpty(filePath)) {
             return false;
         }
 
