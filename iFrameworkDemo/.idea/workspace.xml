@@ -19,7 +19,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.iflytek.iFrameworkDemo" />
   </component>
   <component name="ChangeListManager">
@@ -45,90 +44,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36902484" vertical-offset="1878" max-vertical-offset="2584">
-              <caret line="118" column="62" selection-start-line="118" selection-start-column="62" selection-end-line="118" selection-end-column="62" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1649" max-vertical-offset="2299">
+              <caret line="143" column="78" selection-start-line="143" selection-start-column="78" selection-end-line="143" selection-end-column="78" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3546#3983#0" expanded="true" />
-                <element signature="e#3972#3973#0" expanded="true" />
+                <element signature="method#init#0;class#MainActivity#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DownloadConfig.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadConfig.java">
+      <file leaf-file-name="SourceProvicer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/SourceProvicer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="224" max-vertical-offset="912">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="950">
+              <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#806#807#0" expanded="true" />
-                <element signature="e#843#844#0" expanded="true" />
-                <element signature="class#Builder#0;class#DownloadConfig#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DownloadDAO.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadDAO.java">
+      <file leaf-file-name="DownloadTaskAdapter.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/DownloadTaskAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="890" max-vertical-offset="2698">
-              <caret line="61" column="113" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="113" />
+            <state vertical-scroll-proportion="0.62818" vertical-offset="1142" max-vertical-offset="2451">
+              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#findDownloadTaskById#0;class#DownloadDAO#0" expanded="false" />
-                <element signature="method#findDownloadTask#0;class#DownloadDAO#0" expanded="false" />
-                <element signature="method#getAllDownloadTask#0;class#DownloadDAO#0" expanded="false" />
-                <element signature="e#5439#5453#0" expanded="true" />
-                <element signature="method#createDownloadTaskValues#0;class#DownloadDAO#0" expanded="false" />
-                <element signature="method#restoreDownloadTaskFromCursor#0;class#DownloadDAO#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DownloadManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.24" vertical-offset="2281" max-vertical-offset="5681">
-              <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#828#850#0" expanded="true" />
-                <element signature="e#927#953#0" expanded="true" />
-                <element signature="e#1056#1057#0" expanded="true" />
-                <element signature="e#1094#1095#0" expanded="true" />
-                <element signature="e#1333#1334#0" expanded="true" />
-                <element signature="e#1363#1364#0" expanded="true" />
-                <element signature="e#1417#1418#0" expanded="true" />
-                <element signature="e#1480#1481#0" expanded="true" />
-                <element signature="e#1910#1911#0" expanded="true" />
-                <element signature="e#1939#1940#0" expanded="true" />
-                <element signature="e#5378#5379#0" expanded="true" />
-                <element signature="e#5425#5426#0" expanded="true" />
-                <element signature="e#5453#5454#0" expanded="true" />
-                <element signature="e#5487#5488#0" expanded="true" />
-                <element signature="e#5846#6062#0" expanded="true" />
-                <element signature="e#6050#6051#0" expanded="true" />
-                <element signature="e#6200#6414#0" expanded="true" />
-                <element signature="e#6403#6404#0" expanded="true" />
-                <element signature="e#6551#6764#0" expanded="true" />
-                <element signature="e#6753#6754#0" expanded="true" />
-                <element signature="e#6902#7116#0" expanded="true" />
-                <element signature="e#7105#7106#0" expanded="true" />
-                <element signature="e#7290#7505#0" expanded="true" />
-                <element signature="e#7494#7495#0" expanded="true" />
-                <element signature="e#7680#7896#0" expanded="true" />
-                <element signature="e#7884#7885#0" expanded="true" />
-                <element signature="e#8065#8277#0" expanded="true" />
-                <element signature="e#8266#8267#0" expanded="true" />
-                <element signature="e#8360#8526#0" expanded="true" />
-                <element signature="e#8515#8516#0" expanded="true" />
+                <element signature="e#3105#3389#0" expanded="true" />
+                <element signature="e#3378#3379#0" expanded="true" />
+                <element signature="e#3767#4634#0" expanded="true" />
+                <element signature="e#4623#4624#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -137,9 +88,52 @@
       <file leaf-file-name="DownloadTask.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="266" max-vertical-offset="2641">
-              <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="2641">
+              <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DownloadDAO.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1159" max-vertical-offset="3762">
+              <caret line="61" column="113" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="113" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DownloadManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="4860" max-vertical-offset="5396">
+              <caret line="284" column="59" selection-start-line="284" selection-start-column="59" selection-end-line="284" selection-end-column="59" />
+              <folding>
+                <element signature="e#1056#1057#0" expanded="true" />
+                <element signature="e#1094#1095#0" expanded="true" />
+                <element signature="e#5079#5080#0" expanded="true" />
+                <element signature="e#5126#5127#0" expanded="true" />
+                <element signature="e#5154#5155#0" expanded="true" />
+                <element signature="e#5188#5189#0" expanded="true" />
+                <element signature="e#5547#5733#0" expanded="true" />
+                <element signature="e#5721#5722#0" expanded="true" />
+                <element signature="e#5871#6204#0" expanded="true" />
+                <element signature="e#6193#6194#0" expanded="true" />
+                <element signature="e#6341#6526#0" expanded="true" />
+                <element signature="e#6515#6516#0" expanded="true" />
+                <element signature="e#6664#6997#0" expanded="true" />
+                <element signature="e#6986#6987#0" expanded="true" />
+                <element signature="e#7171#7356#0" expanded="true" />
+                <element signature="e#7345#7346#0" expanded="true" />
+                <element signature="e#7531#7717#0" expanded="true" />
+                <element signature="e#7705#7706#0" expanded="true" />
+                <element signature="e#7886#8071#0" expanded="true" />
+                <element signature="e#8060#8061#0" expanded="true" />
+                <element signature="e#8154#8439#0" expanded="true" />
+                <element signature="e#8428#8429#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -147,11 +141,9 @@
       <file leaf-file-name="DownloadOperator.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadOperator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.76" vertical-offset="2623" max-vertical-offset="3629">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2623" max-vertical-offset="3629">
               <caret line="143" column="57" selection-start-line="143" selection-start-column="57" selection-end-line="143" selection-end-column="57" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -159,12 +151,19 @@
       <file leaf-file-name="DemoApplication.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/DemoApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="384" max-vertical-offset="1178">
-              <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#intiImageLoader#0;class#DemoApplication#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="244" max-vertical-offset="1273">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Instrumentation.class" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://D:/adt/adt-bundle-windows-x86-20131030/adt-bundle-windows-x86-20131030/sdk/platforms/android-17/android.jar!/android/app/Instrumentation.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1821" max-vertical-offset="3002">
+              <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -212,11 +211,9 @@
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/DownloadProvider.java" />
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/SqlLiteDownloadProvider.java" />
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/DownloadThread.java" />
-        <option value="$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/SourceProvicer.java" />
         <option value="$PROJECT_DIR$/res/layout/downloadlib_item_layout.xml" />
         <option value="$PROJECT_DIR$/res/layout/download_simple_layout.xml" />
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/DownloadOperator.java" />
-        <option value="$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/DownloadTaskAdapter.java" />
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/utils/FileUtil.java" />
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DowloadConfig.java" />
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/DownloadManager.java" />
@@ -226,9 +223,11 @@
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadTask.java" />
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadConfig.java" />
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadDAO.java" />
-        <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadManager.java" />
         <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadOperator.java" />
         <option value="$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/DemoApplication.java" />
+        <option value="$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/SourceProvicer.java" />
+        <option value="$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadManager.java" />
+        <option value="$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/DownloadTaskAdapter.java" />
         <option value="$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/MainActivity.java" />
       </list>
     </option>
@@ -265,8 +264,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -535,6 +532,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -837,12 +836,13 @@
       <workItem from="1409654815960" duration="10896000" />
       <workItem from="1409703488696" duration="16565000" />
       <workItem from="1409733729715" duration="3158000" />
-      <workItem from="1409880785872" duration="23337000" />
+      <workItem from="1409880785872" duration="23495000" />
+      <workItem from="1410240195897" duration="4989000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95641000" />
+    <option name="totallyTimeSpent" value="100788000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -853,10 +853,10 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.011965812" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.54188037" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.582906" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60854703" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -906,7 +906,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/MainActivity.java</url>
-          <line>61</line>
+          <line>70</line>
           <properties />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
@@ -918,7 +918,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/DownloadTaskAdapter.java</url>
-          <line>116</line>
+          <line>109</line>
           <properties />
           <option name="timeStamp" value="13" />
         </line-breakpoint>
@@ -935,14 +935,8 @@
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadManager.java</url>
-          <line>67</line>
-          <properties />
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/MainActivity.java</url>
-          <line>112</line>
+          <line>127</line>
           <properties />
           <option name="timeStamp" value="38" />
         </line-breakpoint>
@@ -952,8 +946,14 @@
           <properties />
           <option name="timeStamp" value="39" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/DownloadManager.java</url>
+          <line>106</line>
+          <properties />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="44" />
+      <option name="time" value="47" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -961,13 +961,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/ui/universalimageloader/core/assist/deque/Deque.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10393">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/ui/universalimageloader/utils/L.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1634">
@@ -1127,7 +1120,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="570" max-vertical-offset="1881">
           <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1154,14 +1146,6 @@
       </provider>
       <provider editor-type-id="android-designer">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/SourceProvicer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="91" max-vertical-offset="912">
-          <caret line="21" column="98" selection-start-line="17" selection-start-column="6" selection-end-line="21" selection-end-column="98" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/download_simple_layout.xml">
@@ -1195,7 +1179,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="1577">
           <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1227,7 +1210,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1653">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="97" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1237,16 +1219,6 @@
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
             <element signature="e#256#274#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/DownloadTaskAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2219" max-vertical-offset="3553">
-          <caret line="141" column="106" selection-start-line="141" selection-start-column="22" selection-end-line="141" selection-end-column="106" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1263,7 +1235,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6596558" vertical-offset="1365" max-vertical-offset="3515">
           <caret line="91" column="26" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1271,15 +1242,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.332696" vertical-offset="2410" max-vertical-offset="5491">
           <caret line="137" column="58" selection-start-line="137" selection-start-column="44" selection-end-line="137" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/DownloadManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.195895" vertical-offset="1516" max-vertical-offset="6441">
-          <caret line="358" column="50" selection-start-line="358" selection-start-column="50" selection-end-line="358" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1287,7 +1249,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.521978" vertical-offset="0" max-vertical-offset="2394">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1295,7 +1256,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4416826" vertical-offset="17040" max-vertical-offset="21774">
           <caret line="910" column="19" selection-start-line="910" selection-start-column="19" selection-end-line="910" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1303,15 +1263,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39738807" vertical-offset="72" max-vertical-offset="1121">
           <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="266" max-vertical-offset="2641">
-          <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1319,7 +1270,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1055901" vertical-offset="164" max-vertical-offset="1273">
           <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1327,12 +1277,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="167" max-vertical-offset="912">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#806#807#0" expanded="true" />
-            <element signature="e#843#844#0" expanded="true" />
-            <element signature="class#Builder#0;class#DownloadConfig#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1340,22 +1285,48 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="890" max-vertical-offset="2698">
           <caret line="61" column="113" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="113" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#findDownloadTaskById#0;class#DownloadDAO#0" expanded="false" />
-            <element signature="method#findDownloadTask#0;class#DownloadDAO#0" expanded="false" />
-            <element signature="method#getAllDownloadTask#0;class#DownloadDAO#0" expanded="false" />
-            <element signature="e#5439#5453#0" expanded="true" />
-            <element signature="method#createDownloadTaskValues#0;class#DownloadDAO#0" expanded="false" />
-            <element signature="method#restoreDownloadTaskFromCursor#0;class#DownloadDAO#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadOperator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.76" vertical-offset="2623" max-vertical-offset="3629">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2623" max-vertical-offset="3629">
           <caret line="143" column="57" selection-start-line="143" selection-start-column="57" selection-end-line="143" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/DemoApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="244" max-vertical-offset="1273">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/adt/adt-bundle-windows-x86-20131030/adt-bundle-windows-x86-20131030/sdk/platforms/android-17/android.jar!/android/app/Instrumentation.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1821" max-vertical-offset="3002">
+          <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/download/DownloadManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.925373" vertical-offset="6057" max-vertical-offset="6593">
+          <caret line="67" column="44" selection-start-line="67" selection-start-column="44" selection-end-line="67" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/SourceProvicer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="950">
+          <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1364,63 +1335,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.24" vertical-offset="2281" max-vertical-offset="5681">
-          <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="4860" max-vertical-offset="5396">
+          <caret line="284" column="59" selection-start-line="284" selection-start-column="59" selection-end-line="284" selection-end-column="59" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#828#850#0" expanded="true" />
-            <element signature="e#927#953#0" expanded="true" />
             <element signature="e#1056#1057#0" expanded="true" />
             <element signature="e#1094#1095#0" expanded="true" />
-            <element signature="e#1333#1334#0" expanded="true" />
-            <element signature="e#1363#1364#0" expanded="true" />
-            <element signature="e#1417#1418#0" expanded="true" />
-            <element signature="e#1480#1481#0" expanded="true" />
-            <element signature="e#1910#1911#0" expanded="true" />
-            <element signature="e#1939#1940#0" expanded="true" />
-            <element signature="e#5378#5379#0" expanded="true" />
-            <element signature="e#5425#5426#0" expanded="true" />
-            <element signature="e#5453#5454#0" expanded="true" />
-            <element signature="e#5487#5488#0" expanded="true" />
-            <element signature="e#5846#6062#0" expanded="true" />
-            <element signature="e#6050#6051#0" expanded="true" />
-            <element signature="e#6200#6414#0" expanded="true" />
-            <element signature="e#6403#6404#0" expanded="true" />
-            <element signature="e#6551#6764#0" expanded="true" />
-            <element signature="e#6753#6754#0" expanded="true" />
-            <element signature="e#6902#7116#0" expanded="true" />
-            <element signature="e#7105#7106#0" expanded="true" />
-            <element signature="e#7290#7505#0" expanded="true" />
-            <element signature="e#7494#7495#0" expanded="true" />
-            <element signature="e#7680#7896#0" expanded="true" />
-            <element signature="e#7884#7885#0" expanded="true" />
-            <element signature="e#8065#8277#0" expanded="true" />
-            <element signature="e#8266#8267#0" expanded="true" />
-            <element signature="e#8360#8526#0" expanded="true" />
-            <element signature="e#8515#8516#0" expanded="true" />
+            <element signature="e#5079#5080#0" expanded="true" />
+            <element signature="e#5126#5127#0" expanded="true" />
+            <element signature="e#5154#5155#0" expanded="true" />
+            <element signature="e#5188#5189#0" expanded="true" />
+            <element signature="e#5547#5733#0" expanded="true" />
+            <element signature="e#5721#5722#0" expanded="true" />
+            <element signature="e#5871#6204#0" expanded="true" />
+            <element signature="e#6193#6194#0" expanded="true" />
+            <element signature="e#6341#6526#0" expanded="true" />
+            <element signature="e#6515#6516#0" expanded="true" />
+            <element signature="e#6664#6997#0" expanded="true" />
+            <element signature="e#6986#6987#0" expanded="true" />
+            <element signature="e#7171#7356#0" expanded="true" />
+            <element signature="e#7345#7346#0" expanded="true" />
+            <element signature="e#7531#7717#0" expanded="true" />
+            <element signature="e#7705#7706#0" expanded="true" />
+            <element signature="e#7886#8071#0" expanded="true" />
+            <element signature="e#8060#8061#0" expanded="true" />
+            <element signature="e#8154#8439#0" expanded="true" />
+            <element signature="e#8428#8429#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/DemoApplication.java">
+    <entry file="file://$PROJECT_DIR$/../iFramework/src/com/iflytek/iFramework/downloader/DownloadTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="384" max-vertical-offset="1178">
-          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#intiImageLoader#0;class#DemoApplication#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="2641">
+          <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36902484" vertical-offset="1878" max-vertical-offset="2584">
-          <caret line="118" column="62" selection-start-line="118" selection-start-column="62" selection-end-line="118" selection-end-column="62" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1649" max-vertical-offset="2299">
+          <caret line="143" column="78" selection-start-line="143" selection-start-column="78" selection-end-line="143" selection-end-column="78" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3546#3983#0" expanded="true" />
-            <element signature="e#3972#3973#0" expanded="true" />
+            <element signature="method#init#0;class#MainActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/iflytek/iFrameworkDemo/download/DownloadTaskAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62818" vertical-offset="1142" max-vertical-offset="2451">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3105#3389#0" expanded="true" />
+            <element signature="e#3378#3379#0" expanded="true" />
+            <element signature="e#3767#4634#0" expanded="true" />
+            <element signature="e#4623#4624#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -1,6 +1,6 @@
 package com.iflytek.iFrameworkDemo;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.iflytek.iFramework.downloader.DownloadManager;
 import com.iflytek.iFramework.downloader.DownloadTask;
+import com.iflytek.iFrameworkDemo.download.DownloadTaskAdapter;
+import com.iflytek.iFrameworkDemo.download.SourceProvicer;
 
-public class MainActivity extends Activity {
+import java.util.List;
+
+public class MainActivity extends ListActivity {
     /**
      * Called when the activity is first created.
      */
@@ -31,20 +35,25 @@ public class MainActivity extends Activity {
 
     DownloadBroadcastReceiver receiver = new DownloadBroadcastReceiver();
 
+    List<DownloadTask> taskList;
+    DownloadTaskAdapter adapter;
+    Integer STOP = new Integer(0);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.download_simple_layout);
+        //  setContentView(R.layout.download_simple_layout);
         IntentFilter intentFilter = new IntentFilter(DownloadManager.DWONLOAD_ACTION);
         registerReceiver(receiver, intentFilter);
-        init();
-        // setContentView(R.layout.downloadlib_main_layout);
 
-        // create an array of Strings, that will be put to our ListActivity
-        //   DownloadTaskAdapter adapter = new DownloadTaskAdapter(this,
-        //          SourceProvicer.getTaskList());
-        //     setListAdapter(adapter);
+        //   init();
+
+        setContentView(R.layout.downloadlib_main_layout);
+
+        taskList = SourceProvicer.getTaskList();
+        adapter = new DownloadTaskAdapter(this, taskList);
+        setListAdapter(adapter);
 
 
 //        setContentView(R.layout.main);
@@ -62,11 +71,17 @@ public class MainActivity extends Activity {
 //        Logger.e("AfinalOrmDemoActivity", "用户数量："+ (userList!=null?userList.size():0));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
     void init() {
 
         ddtask.setName("APK");
         ddtask.setUrl("http://static.huaqianapp.com/apk/HuaQian-release.apk");
-      //  ddtask.setDownloadSavePath("/mnt/sdcard/");
+        //  ddtask.setDownloadSavePath("/mnt/sdcard/");
         ddtask.setId(ddtask.getUrl());
         String customParam = "{\"fileType\":\"zip\"}";
         ddtask.setCustomParam(customParam);
@@ -119,20 +134,32 @@ public class MainActivity extends Activity {
         String SMS_RECEIVED = DownloadManager.DWONLOAD_ACTION;
 
         public void onReceive(Context context, Intent intent) {
-            Log.i(SMS_RECEIVED, intent.getIntExtra("msgtype",0)+"");
-            int msgType = intent.getIntExtra("msgtype",0);
-            DownloadTask task=(DownloadTask)intent.getSerializableExtra("task");
-            if (msgType==DownloadTask.STATUS_RUNNING) {
-                pBar.setProgress((int) (task.getDownloadFinishedSize() * 100 / task.getDownloadTotalSize()));
-            }else if(msgType==DownloadTask.STATUS_FINISHED){
-                pBar.setProgress(100);
-                Toast.makeText(context,"下载成功",Toast.LENGTH_LONG).show();
-                if(!task.getCustomParam().isEmpty()){
-                    Log.i(SMS_RECEIVED,task.getCustomParam());
+
+
+            DownloadTask task = (DownloadTask) intent.getSerializableExtra("task");
+            int msgType =task.getStatus();
+            for (DownloadTask t : taskList) {
+                if (t.getId().equals(task.getId())) {
+                    t.setCustomParam(task.getCustomParam());
+                    t.setDownloadFinishedSize(task.getDownloadFinishedSize());
+                    t.setDownloadSavePath(task.getDownloadSavePath());
+                    t.setDownloadSpeed(task.getDownloadSpeed());
+                    t.setDownloadTotalSize(task.getDownloadTotalSize());
+                    t.setStatus(task.getStatus());
                 }
-            }else if(msgType==DownloadTask.STATUS_CANCELED){
-                pBar.setProgress(0);
-                Toast.makeText(context,"取消下载",Toast.LENGTH_LONG).show();
+            }
+           if (msgType == DownloadTask.STATUS_FINISHED) {
+                //  pBar.setProgress(100);
+                Toast.makeText(context,task.getId()+ "下载成功", Toast.LENGTH_LONG).show();
+                if (!task.getCustomParam().isEmpty()) {
+                    Log.i(SMS_RECEIVED, task.getCustomParam());
+                }
+            } else if (msgType == DownloadTask.STATUS_CANCELED) {
+              //  pBar.setProgress(0);
+                Toast.makeText(context,task.getId()+ "取消下载", Toast.LENGTH_LONG).show();
+            }
+            synchronized (STOP) {
+                adapter.notifyDataSetChanged();
             }
         }
     }

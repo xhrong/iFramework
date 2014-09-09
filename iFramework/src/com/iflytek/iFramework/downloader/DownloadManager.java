@@ -42,7 +42,7 @@ public class DownloadManager {
         return instance;
     }
 
-    public Context getContext(){
+    public Context getContext() {
         return context;
     }
 
@@ -61,7 +61,7 @@ public class DownloadManager {
     public void init(DownloadConfig config) {
         if (config == null) {
             this.config = DownloadConfig.getDefaultDownloadConfig();
-        }else{
+        } else {
             this.config = config;
         }
         pool = Executors.newFixedThreadPool(config.getMaxDownloadThread());
@@ -148,12 +148,6 @@ public class DownloadManager {
         DownloadOperator operator = taskOperators.get(taskId);
         if (operator != null) {
             operator.cancelDownload();
-        } else {//取消没有和下载器关联的任务
-            if (downloadTasks.containsKey(taskId)) {
-                DownloadTask task = downloadTasks.get(taskId);
-                task.setStatus(com.iflytek.iFramework.download.DownloadTask.STATUS_CANCELED);
-                dao.updateDownloadTask(task);
-            }
         }
     }
 
@@ -188,8 +182,7 @@ public class DownloadManager {
             @Override
             public void run() {
                 dao.updateDownloadTask(task);
-
-                sendDownloadBroadcast(DownloadTask.STATUS_RUNNING, task);
+                sendDownloadBroadcast(task);
             }
 
         });
@@ -201,7 +194,10 @@ public class DownloadManager {
             @Override
             public void run() {
                 dao.updateDownloadTask(task);
-                sendDownloadBroadcast(DownloadTask.STATUS_STARTED, task);
+                int status = task.getStatus();
+                task.setStatus(DownloadTask.STATUS_STARTED);
+                sendDownloadBroadcast(task);
+                task.setStatus(status);
             }
         });
     }
@@ -213,7 +209,7 @@ public class DownloadManager {
             @Override
             public void run() {
                 dao.updateDownloadTask(task);
-                sendDownloadBroadcast(DownloadTask.STATUS_PAUSED, task);
+                sendDownloadBroadcast(task);
             }
         });
     }
@@ -224,7 +220,10 @@ public class DownloadManager {
             @Override
             public void run() {
                 dao.updateDownloadTask(task);
-                sendDownloadBroadcast(DownloadTask.STATUS_RESUMED, task);
+                int status = task.getStatus();
+                task.setStatus(DownloadTask.STATUS_RESUMED);
+                sendDownloadBroadcast(task);
+                task.setStatus(status);
             }
         });
     }
@@ -236,7 +235,7 @@ public class DownloadManager {
             @Override
             public void run() {
                 dao.deleteDownloadTask(task);
-                sendDownloadBroadcast(DownloadTask.STATUS_CANCELED, task);
+                sendDownloadBroadcast(task);
             }
         });
     }
@@ -248,7 +247,7 @@ public class DownloadManager {
             @Override
             public void run() {
                 dao.updateDownloadTask(task);
-                sendDownloadBroadcast(DownloadTask.STATUS_FINISHED, task);
+                sendDownloadBroadcast(task);
             }
 
         });
@@ -261,7 +260,7 @@ public class DownloadManager {
             @Override
             public void run() {
                 dao.updateDownloadTask(task);
-                sendDownloadBroadcast(DownloadTask.STATUS_ERROR, task);
+                sendDownloadBroadcast(task);
             }
         });
     }
@@ -270,7 +269,10 @@ public class DownloadManager {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                sendDownloadBroadcast(DownloadTask.STATUS_RETRY, task);
+                int status = task.getStatus();
+                task.setStatus(DownloadTask.STATUS_RETRY);
+                sendDownloadBroadcast(task);
+                task.setStatus(status);
             }
         });
     }
@@ -280,13 +282,12 @@ public class DownloadManager {
         downloadTasks.remove(taskID);
     }
 
-    private void sendDownloadBroadcast(int msgType, DownloadTask task) {
+    private void sendDownloadBroadcast(DownloadTask task) {
         Intent intent = new Intent();
         intent.setAction(DWONLOAD_ACTION);
         Bundle bundle = new Bundle();
         bundle.putSerializable("task", task);
         intent.putExtras(bundle);
-        intent.putExtra("msgtype", msgType);
         context.sendBroadcast(intent);//传递过去
     }
 

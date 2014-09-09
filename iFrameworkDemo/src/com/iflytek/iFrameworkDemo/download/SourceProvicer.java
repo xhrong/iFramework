@@ -1,7 +1,6 @@
 package com.iflytek.iFrameworkDemo.download;
 
-import com.iflytek.iFramework.download.DownloadManager;
-import com.iflytek.iFramework.download.DownloadTask;
+import com.iflytek.iFramework.downloader.DownloadTask;
 
 import java.util.ArrayList;
 
@@ -19,20 +18,20 @@ public class SourceProvicer {
         task1.setName("APK");
         task1.setUrl("http://static.huaqianapp.com/apk/HuaQian-release.apk");
         task1.setDownloadSavePath("/mnt/sdcard/");
-        task1.setId(DownloadManager.getInstance().getConfig().getTaskIdCreator().createId(task1));
+        task1.setId(task1.getUrl());
         ddList.add(task1);
-//        DownloadTask task2 = new DownloadTask();
-//        task2.setName("IMAGE");
-//        task2.setUrl("http://image16-c.poco.cn/mypoco/myphoto/20140609/10/3048611720140609105056075_640.jpg");
-//        task2.setDownloadSavePath("/mnt/sdcard/");
-//        task2.setId(DownloadManager.getInstance().getConfig().getTaskIdCreator().createId(task2));
-//        ddList.add(task2);
-//        DownloadTask task3 = new DownloadTask();
-//        task3.setName("ZIP");
-//        task3.setUrl("http://download.thinkbroadband.com/20MB.zip");
-//        task3.setDownloadSavePath("/mnt/sdcard/");
-//        task3.setId(DownloadManager.getInstance().getConfig().getTaskIdCreator().createId(task3));
-//        ddList.add(task3);
+        DownloadTask task2 = new DownloadTask();
+        task2.setName("IMAGE");
+        task2.setUrl("http://image16-c.poco.cn/mypoco/myphoto/20140609/10/3048611720140609105056075_640.jpg");
+        task2.setDownloadSavePath("/mnt/sdcard/");
+        task2.setId(task2.getUrl());
+        ddList.add(task2);
+        DownloadTask task3 = new DownloadTask();
+        task3.setName("ZIP");
+        task3.setUrl("http://download.thinkbroadband.com/20MB.zip");
+        task3.setDownloadSavePath("/mnt/sdcard/");
+        task3.setId(task3.getUrl());
+        ddList.add(task3);
 //        DownloadTask task4 = new DownloadTask();
 //        task4.setName("MTBK");
 //        task4.setUrl("http://download.cycore.cn/3/files/35501ba4b8c841158f266946754bc4bb.mtbk");
