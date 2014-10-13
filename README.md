@@ -3,9 +3,9 @@
 @[Android|iFramework|SDK|说明文档]
 
 **iFramework**是收集了优秀的常用的Android开源项目，整合而成的Android开发组件集，同时进行了少量的必要的功能调整。目前，该组件集主要包括了以下几个模块：
-- **Http**：目前集成了Asynchronous Http Client for Android，该组件是基于回调的异步有Http库，主要功能是HTTP请求，支持使get、post，支持文件上传等多种功能
+- **Http**：目前集成了Asynchronous Http Client for Android，该组件是基于回调的异步有Http库，主要功能是HTTP请求，支持使get、post，支持文件上传等多种功能；简单地同步Http请求（需要在线程中执行）
 - **Database**:目前集成的是Afinal框架中的finalDb模块，该模块使用简单，入门快
-- **UI**:该模块主要收集了一些常用的UI组件或扩展，目前主要有Pull To Refresh Views for Android、Android Touch Gallery、Universal Image Loader for Android
+- **UI**:该模块主要收集了一些常用的UI组件或扩展，目前主要有Pull To Refresh Views for Android、Android Touch Gallery、Universal Image Loader for Android、TouchGallery（添加了文件缓存功能）、TagCloud（做了精简处理）、SlidingMenu、pinterestlikeadapterview（图片的流式布局）
 - **Logger**:主要是用于将程序信息，记录成日志文件，方便程序发布后的问题跟踪。非Github项目，代码简单，建议直接阅读。
 - **Downloader**：Android下载组件，支持暂停、恢复、取消操作
 - **Utils**:暂无内容 
